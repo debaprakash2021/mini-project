@@ -1,0 +1,30 @@
+.grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:15px;
+    margin: 25px;
+}
+.card{
+    border: 1px solid black;
+    padding: 20px;
+    /* text-align: center; */
+    border-radius: 10px;
+    width: 280px;
+    font-size: large;
+    box-shadow: 0px 5px 10px rgb(0, 0, 0);
+    margin: 12px;
+}
+.card:hover{
+    transform: scale(1.05);
+}
+
+.card h4{
+text-align: center;
+}
+img{
+    height:250px;
+}
+
+h1{
+    text-align: center;
+}
