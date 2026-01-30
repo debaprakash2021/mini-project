@@ -23,8 +23,77 @@ text-align: center;
 }
 img{
     height:250px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
 }
 
 h1{
     text-align: center;
+}
+
+/* Search history page styles */
+#historyList {
+    list-style: none;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0;
+}
+#historyList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 8px 12px;
+}
+.history-item {
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+    padding: 8px 12px;
+    cursor: pointer;
+    width: 100%;
+}
+.history-item:hover {
+    background: #f5f5f5;
+}
+#clearHistory {
+    display: inline-block;
+    margin: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #d9534f;
+    background: #fff;
+    color: #d9534f;
+    cursor: pointer;
+}
+#clearHistory:hover { background:#d9534f;color:white; }
+
+/* Heading */
+#heading {
+    text-align: center;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* Suggestions */
+#suggestions {
+    max-width: 600px;
+    margin: 8px auto;
+}
+.suggestion-item {
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+.suggestion-item:hover {
+    background: #f0f0f0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .card { width: auto; }
+    #historyList { max-width: 90%; }
 }
