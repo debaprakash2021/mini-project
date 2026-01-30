@@ -35,7 +35,6 @@ fetch("https://dummyjson.com/products")
             <h4>${product.title}</h4>
             <p>₹ ${product.price}</p>
         `;
-
         grid.appendChild(card);
     });
 })
