@@ -97,7 +97,3 @@ h1{
     .card { width: auto; }
     #historyList { max-width: 90%; }
 }
-
-#searchInput{
-    font-size: medium;
-}
