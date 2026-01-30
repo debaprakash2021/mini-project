@@ -5,29 +5,34 @@
 // })
 // .catch(error => {console.error('Error:', error)});
 
-fetch("https://dummyjson.com/products")
-.then(response => response.json())
-.then(data => {
-    let grid = document.getElementById("productGrid");
+const grid = document.getElementById("productGrid");
 
-    data.products.forEach(product => {
-        let card = document.createElement("div");
-        card.className = "card";
+if (grid) {
+  // Legacy non-paginated product rendering (only when #productGrid exists)
+  fetch("https://dummyjson.com/products")
+  .then(response => response.json())
+  .then(data => {
+      data.products.forEach(product => {
+          let card = document.createElement("div");
+          card.className = "card";
 
-        card.innerHTML = `
-            <img src="${product.thumbnail}">
-            <h4>${product.title}</h4>
-            <p>₹ ${product.price}</p>
-        `;
+          card.innerHTML = `
+              <img src="${product.thumbnail}">
+              <h4>${product.title}</h4>
+              <p>₹ ${product.price}</p>
+          `;
 
-        grid.appendChild(card);
-        card.addEventListener("click",()=>{
-            console.log("Card Clicked",product.id);
-            window.location.href = `product.html?id=${product.id}`
-        });
-    });
-})
-.catch(err => console.log(err));
+          grid.appendChild(card);
+          card.addEventListener("click",()=>{
+              console.log("Card Clicked",product.id);
+              window.location.href = `product.html?id=${product.id}`
+          });
+      });
+  })
+  .catch(err => console.log(err));
+} else {
+  console.log('Non-paginated #productGrid not present; skipping legacy product render.');
+} 
 
 
 
