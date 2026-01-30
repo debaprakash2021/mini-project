@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mini-project</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="pagination/pagination.css" />
     <script src="script.js" defer ></script>
+    <script src="pagination/pagination.js" defer></script>
   
   </head>
   <body>
@@ -15,12 +17,26 @@
       <button id="searchbtn">Search</button>
       <button><a href="searchHistory.html">See search History</a></button>
       <button><a href="viewHistory.html">View History</a></button>
+  
    
       <div id="suggestions"></div>
-      <div class="grid" id="productGrid">
-      
-      
-      </div>
-    </div>
+
+      <section class="pagination-container">
+        <div id="productList" class="product-grid" aria-live="polite"></div>
+
+        <div class="pagination-controls">
+          <!-- <button id="firstBtn" class="page-btn">First</button> -->
+          <button id="prevBtn" class="page-btn">Prev</button>
+
+          <div class="page-info-wrap">
+            <div id="pageInfo" class="page-info"></div>
+            <!-- <input id="pageInput" class="page-input" type="number" min="1" aria-label="Page number" /> -->
+            <!-- <button id="goBtn" class="page-btn">Go</button> -->
+          </div>
+
+          <button id="nextBtn" class="page-btn">Next</button>
+          <!-- <button id="lastBtn" class="page-btn">Last</button> -->
+        </div>
+      </section>
   </body>
 </html>

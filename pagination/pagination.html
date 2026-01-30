@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagination</title>
+  <link rel="stylesheet" href="pagination.css">
+  <script src="pagination.js" defer></script>
+</head>
+<body>
+  <main class="pagination-container">
+    <h1>Products</h1>
+    <div id="productList" class="product-grid" aria-live="polite"></div>
+
+    <div class="pagination-controls">
+      <button id="firstBtn" class="page-btn">First</button>
+      <button id="prevBtn" class="page-btn">Previous</button>
+
+      <div class="page-info-wrap">
+        <div id="pageInfo" class="page-info" aria-hidden="false"></div>
+        <input id="pageInput" class="page-input" type="number" min="1" aria-label="Page number" />
+        <button id="goBtn" class="page-btn">Go</button>
+      </div>
+
+      <button id="nextBtn" class="page-btn">Next</button>
+      <button id="lastBtn" class="page-btn">Last</button>
+    </div>
+  </main>
+</body>
+</html>
