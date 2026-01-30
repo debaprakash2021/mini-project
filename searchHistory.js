@@ -87,6 +87,8 @@ if(query) {
                     <p>₹ ${product.price}</p>
                 `;
                 productGrid.appendChild(card);
+                // adding eventListener to card
+                
             });
         })
         .catch(err => console.error(err));

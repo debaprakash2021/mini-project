@@ -97,3 +97,9 @@ h1{
     .card { width: auto; }
     #historyList { max-width: 90%; }
 }
+
+/* individual Product details */
+
+#title{
+    font-size: larger;
+}
