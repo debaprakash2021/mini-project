@@ -29,6 +29,7 @@ fetch("https://dummyjson.com/products")
 
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchbtn");
+const suggestionBox = document.getElementById("suggestions");
 console.log(searchBtn,searchInput);
 
 searchBtn.addEventListener("click", () => {
@@ -36,23 +37,24 @@ searchBtn.addEventListener("click", () => {
     if(!query) return;
     console.log("Searching for:", query);
 
-    // // Save History
+    // Save History (avoid duplicates)
     let history = JSON.parse(localStorage.getItem("searchHistory")) || [];
     console.log(history);
 
-    if(!history.includes(query)){
+    if(!history.some(h => h.query.toLowerCase() === query.toLowerCase())){
         history.push({
-            query:query,
+            query: query,
             time: Date.now()
         });
         localStorage.setItem("searchHistory",JSON.stringify(history));
+    } else {
+        // Update timestamp to mark recent search
+        history = history.map(h => h.query.toLowerCase() === query.toLowerCase() ? { query: h.query, time: Date.now() } : h);
+        localStorage.setItem("searchHistory",JSON.stringify(history));
     }
 
-    
-    window.location.href =`search.html?q=${encodeURIComponent(query)}`; 
+    window.location.href = `searchHistory.html?q=${encodeURIComponent(query)}`; 
     searchInput.value = "";
-
-    
 });
 
 
@@ -65,8 +67,8 @@ searchInput.addEventListener("input",()=>{
     const history = JSON.parse(localStorage.getItem("searchHistory")) || [];
     console.log(history);
    // Filter based on Query Field
-    const matches = history.filter(item=>{
-        item.query.toLowerCase().inscludes(text)
+    const matches = history.filter(item => {
+        return item.query.toLowerCase().includes(text);
     });
    // Clear previous suggestion
     suggestionBox.innerHTML = "";
