@@ -4,18 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="productDetails.css">
     <script src="product.js" defer></script>
 </head>
 <body>
-   <div class="container">
+  <div class="page-wrap">
     <h1>PRODUCT DETAIL</h1>
-    <div id="title"></div>
-    <img id="thumbnail" src="" alt="">
-    <div id="description"></div>
-    <div id="price"></div>
-    <div id="availability"></div>
-    <div id="details"></div>
-   </div>
+
+    <main class="product-card" role="main" aria-labelledby="title">
+      <!-- Left: Image / Media -->
+      <section class="product-media">
+        <img id="thumbnail" src="" alt="Product image" />
+      </section>
+
+      <!-- Right: Details -->
+      <aside class="product-info">
+        <h2 id="title">Loading…</h2>
+
+        <div class="meta">
+          <div id="price" class="price">&nbsp;</div>
+          <div id="availability" class="availability">&nbsp;</div>
+        </div>
+
+        <p id="description" class="description">&nbsp;</p>
+
+        <div class="details">
+          <ul id="details"></ul>
+        </div>
+
+        <div id="tags" class="tags" aria-hidden="false"></div>
+
+        <a class="back-btn" href="index.html">← Back to products</a>
+      </aside>
+    </main>
+  </div>
 </body>
 </html>

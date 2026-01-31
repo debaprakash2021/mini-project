@@ -4,8 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View History</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="viewHistory.js" defer></script>
 </head>
 <body>
-    <h1>This is View History page</h1>
+  <div class="page-wrap">
+    <h1>Viewed Products</h1>
+
+    <div class="history-controls">
+      <button id="clearHistory" class="clear-btn">Clear History</button>
+      <a href="index.html" class="back-link">← Back to products</a>
+    </div>
+
+    <div id="historyList" class="history-list" aria-live="polite"></div>
+  </div>
 </body>
-</html>
+</html> 

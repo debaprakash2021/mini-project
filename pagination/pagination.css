@@ -6,15 +6,19 @@
   --accent: #0b5ed7;
 }
 
-body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:#f6f7fb;}
+body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
 
 .pagination-container{max-width:1100px;margin:20px auto;padding:0 16px}
 
 .product-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
-  gap:var(--gap);
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:24px; /* increased spacing to avoid crowding */
   margin:12px 0 24px 0;
+  padding:8px; /* inner padding so cards don't touch container edge */
+  align-items:start; /* ensure consistent top alignment */
+  grid-auto-rows: minmax(160px, auto); /* avoid overlapping due to variable heights */
+  box-sizing: border-box;
 }
 
 .card{
@@ -45,7 +49,7 @@ body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica
 .page-input{width:70px;padding:6px;border-radius:6px;border:1px solid #ddd}
 
 @media (max-width:420px){
-  .card img{height:110px}
+  .card img{height:90px}
   .page-info{font-size:0.9rem}
   .page-input{width:48px}
 }

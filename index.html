@@ -13,29 +13,32 @@
   <body>
     <h1>Product Store</h1>
  
-      <input type="text" placeholder="Search your product here" id="searchInput">
-      <button id="searchbtn">Search</button>
-      <button><a href="searchHistory.html">See search History</a></button>
-      <button><a href="viewHistory.html">View History</a></button>
-  
-   
+      <div class="home-search">
+        <input type="text" placeholder="Search your product here" id="searchInput">
+        <button id="searchbtn" class="primary">Search</button>
+        <button id="clearSearchBtn" class="secondary" type="button">Clear</button>
+
+        <a class="link-btn" href="searchHistory.html">See Search History</a>
+        <a class="link-btn" href="viewHistory.html">View History</a>
+      </div>
+
       <div id="suggestions"></div>
+      <div id="searchResults" class="products-grid"></div>
 
       <section class="pagination-container">
         <div id="productList" class="product-grid" aria-live="polite"></div>
 
         <div class="pagination-controls">
-          <!-- <button id="firstBtn" class="page-btn">First</button> -->
+          
           <button id="prevBtn" class="page-btn">Prev</button>
 
           <div class="page-info-wrap">
             <div id="pageInfo" class="page-info"></div>
-            <!-- <input id="pageInput" class="page-input" type="number" min="1" aria-label="Page number" /> -->
-            <!-- <button id="goBtn" class="page-btn">Go</button> -->
+           
           </div>
 
           <button id="nextBtn" class="page-btn">Next</button>
-          <!-- <button id="lastBtn" class="page-btn">Last</button> -->
+         
         </div>
       </section>
   </body>

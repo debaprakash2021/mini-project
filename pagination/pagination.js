@@ -14,6 +14,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const productBase = window.location.pathname.includes('/pagination/') ? '../product.html' : 'product.html';
 
+  function addToViewHistory(item) {
+    try {
+      let history = JSON.parse(localStorage.getItem('viewHistory')) || [];
+      history = history.filter(h => h.id !== item.id);
+      history.unshift(item);
+      if (history.length > 50) history.length = 50;
+      localStorage.setItem('viewHistory', JSON.stringify(history));
+    } catch (e) {
+      console.error('viewHistory error', e);
+    }
+  }
+
   if (!container) {
     console.warn('Pagination: #productList not found on page — skipping pagination init.');
     return;
@@ -55,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       card.addEventListener("click", () => {
+        addToViewHistory({ id: product.id, title: product.title, thumbnail: product.thumbnail, time: Date.now() });
         window.location.href = `${productBase}?id=${product.id}`;
       });
       container.appendChild(card);
@@ -127,49 +140,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-function renderPage(){
-    container.innerHTML="";
-    let start = (currentPage - 1) * itemsPerPage;
-    let end = start + itemsPerPage;
-    let pageItems = allProducts.slice(start,end);
 
-    pageItems.forEach(product=>{
-        let card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-            <img src="${product.thumbnail}" alt=""/>
-            <h3>${product.title}</h3>
-            <p>💲${product.price}</p>
-        `;
-
-
-        card.addEventListener("click", () => {
-            window.location.href = `${productBase}?id=${product.id}`;
-        });
-        container.appendChild(card);
-    });
-
-    let totalPages = Math.ceil(allProducts.length/itemsPerPage);
-    pageInfo.innerText = `Page ${currentPage} of ${totalPages}`;
-
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPage;
-    
-}
-
-if (prevBtn) prevBtn.addEventListener("click", () => {
-    if (currentPage > 1) {
-        currentPage--;
-        renderPage();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-});
-
-if (nextBtn) nextBtn.addEventListener("click", () => {
-    const totalPages = Math.ceil(allProducts.length / itemsPerPage);
-    if (currentPage < totalPages) {
-        currentPage++;
-        renderPage();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-});
+// Duplicate block removed — pagination logic is implemented above inside DOMContentLoaded

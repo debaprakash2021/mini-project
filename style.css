@@ -1,18 +1,40 @@
+:root{
+    --page-bg: #f6f8fb; /* base off-white */
+    --page-bg-alt: #f4f7fa; /* slightly different for product page */
+    --card-bg: #ffffff;
+    --muted: #6b7280;
+    --accent: #0b5ed7;
+}
+
+body{
+    background: linear-gradient(180deg, var(--page-bg), #486675);
+    color: #111;
+    min-height: 100vh;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
 .grid{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:15px;
-    margin: 25px;
+    display: grid;
+    /* Make grid responsive: each column at least 220px, grow to fill space */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px; /* increased gap to avoid crowding */
+    margin: 25px auto;
+    align-items: start;
+    justify-content: center;
+    max-width: 1200px;
 }
 .card{
-    border: 1px solid black;
-    padding: 20px;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 12px;
     /* text-align: center; */
     border-radius: 10px;
-    width: 280px;
+    width: auto; /* allow grid to control sizing */
     font-size: large;
-    box-shadow: 0px 5px 10px rgb(0, 0, 0);
-    margin: 12px;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.08);
+    margin: 0; /* spacing handled by grid gap */
+    box-sizing: border-box;
+    background: var(--card-bg);
 }
 .card:hover{
     transform: scale(1.05);
@@ -21,12 +43,25 @@
 .card h4{
 text-align: center;
 }
-img{
-    height:250px;
+/* Image defaults scoped to card contexts (thumbnails) */
+.card img,
+.products-grid .card img {
+    width: 100%;
+    height: auto; /* allow natural scaling */
+    max-height: 220px; /* keep thumbnails visually consistent */
     object-fit: cover;
     display: block;
-    margin: 0 auto;
+    border-radius: 8px;
 }
+
+/* Make search results use the same thumbnail sizing as the main product cards */
+.result-card img, .card img {
+    width: 100%;
+    height: 140px; /* same as pagination cards */
+    object-fit: cover; /* match thumbnail behavior */
+    display: block;
+    border-radius: 6px;
+} 
 
 h1{
     text-align: center;
@@ -77,18 +112,44 @@ h1{
     color: #333;
 }
 
-/* Suggestions */
+/* Suggestions (now horizontal chip-style grid) */
 #suggestions {
-    max-width: 600px;
-    margin: 8px auto;
+    max-width: 1100px;
+    margin: 8px auto 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 0 12px;
 }
 .suggestion-item {
-    padding: 8px 10px;
-    border-bottom: 1px solid #eee;
+    flex: 0 0 150px; /* try to fit ~7-8 items on wide screens */
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 4px 10px rgba(2,6,23,0.03);
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-.suggestion-item:hover {
-    background: #f0f0f0;
+.suggestion-item:focus, .suggestion-item:hover {
+    background: #f0f6fb;
+    transform: translateY(-2px);
+}
+.suggestion-item:active{
+    transform: translateY(0);
+}
+@media (max-width:900px){
+    .suggestion-item{flex: 0 0 40%;}
+}
+@media (max-width:480px){
+    .suggestion-item{flex: 0 0 100%;}
 }
 
 /* Responsive */
@@ -102,4 +163,129 @@ h1{
 
 #title{
     font-size: larger;
+}
+/* View & Search history — card grid (4 per row) */
+.history-controls{display:flex;gap:12px;align-items:center;justify-content:center;margin-bottom:14px}
+.history-list{max-width:1100px;margin:12px auto;display:flex;flex-wrap:wrap;gap:20px;justify-content:flex-start;padding:12px}
+.history-card{
+  flex:0 0 calc(25% - 20px);
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  background: linear-gradient(180deg,var(--card-bg), #fbfdff);
+  padding:14px;
+  border-radius:12px;
+  border-left:6px solid rgba(11,94,215,0.12);
+  box-shadow:0 10px 30px rgba(2,6,23,0.06);
+  transition:transform .14s ease, box-shadow .14s ease;
+  min-height:120px;
+}
+.history-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.12)}
+.history-card img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+.history-card .history-title{font-weight:700;margin-top:4px;color:#0b3f77}
+.history-card .history-time{color:var(--muted);font-size:0.9rem}
+.history-card .history-actions{margin-top:auto;display:flex;justify-content:flex-end}
+.remove-btn{background:transparent;border:1px solid #e5e7eb;padding:6px 8px;border-radius:8px;cursor:pointer}
+.remove-btn:hover{background:#fee}
+.history-count{color:#6b7280;font-size:0.95rem}
+.clear-btn{background:#d9534f;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
+.clear-btn:hover{opacity:0.95}
+
+/* Responsive: 3-per-row, 2-per-row, then single-column */
+@media (max-width:1000px){
+  .history-card{flex:0 0 calc(33.333% - 20px)}
+}
+@media (max-width:700px){
+  .history-card{flex:0 0 calc(50% - 16px)}
+}
+@media (max-width:420px){
+  .history-card{flex:0 0 100%}
+}
+
+/* Legacy vertical row kept as backup */
+.history-row{display:flex;align-items:center;gap:12px;background:#fff;padding:10px;border-radius:8px;box-shadow:0 6px 18px rgba(15,23,42,0.03)}
+.history-row .history-item{background:transparent;border:none;text-align:left;font-weight:700;cursor:pointer}
+.history-row .history-meta{margin-left:auto;color:#6b7280;font-size:0.9rem}
+.history-row .remove-history{background:transparent;border:1px solid #e5e7eb;padding:6px 8px;border-radius:8px;cursor:pointer}
+.history-row .remove-history:hover{background:#fee}
+
+.no-history-msg{width:100%;text-align:center;color:var(--muted);padding:20px}
+
+/* Search form (legacy on search page) */
+.search-form{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:16px}
+.search-form input[type="search"]{width:320px;max-width:60%;padding:10px;border-radius:8px;border:1px solid #ddd}
+.search-form button{padding:10px 12px;border-radius:8px;border:none;background:#0b5ed7;color:white;cursor:pointer}
+.search-form .back-link{margin-left:12px;color:#333;text-decoration:none}
+
+/* Home page search */
+.home-search{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:16px}
+.home-search #searchInput{width:360px;max-width:55%;padding:10px;border-radius:8px;border:1px solid #ddd}
+.home-search .primary{background:#0b5ed7;color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+.home-search .secondary{background:#f0f0f0;color:#333;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+.link-btn{display:inline-block;text-decoration:none;padding:8px 12px;border-radius:8px;background:#fff;border:1px solid #e5e7eb;color:#333}
+.link-btn:hover{background:#f8f9fb}
+
+#searchResults{
+  max-width:1100px;
+  margin:12px auto 24px;
+  display:grid;
+  /* fix column width so cards keep index-like size and center when few items */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
+  justify-content:center;
+  gap:16px;
+  padding:0 12px;
+}
+
+/* product list card styles — keep consistent with index pagination */
+.product-grid .card,
+.products-grid .card,
+.grid .card{
+  background:var(--card-bg);
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:8px;
+  padding:10px;
+  text-align:center;
+  box-shadow:0 1px 4px rgba(2,6,23,0.04);
+  cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  width:100%; /* use grid column sizing instead of fixed width */
+  justify-content:flex-start;
+  align-items:center;
+}
+
+.product-grid .card img, .products-grid .card img, .grid .card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+.product-grid .card h3, .products-grid .card h4{
+  font-size:1rem;
+  margin:8px 0 4px;
+}
+
+.product-grid .card:hover, .products-grid .card:hover, .grid .card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 28px rgba(2,6,23,0.08);
+}
+.result-card{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.result-card img{height:140px;object-fit:cover;border-radius:8px}
+.result-card:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(15,23,42,0.06)}
+.results-section{max-width:1100px;margin:8px auto;padding:0 12px}
+.results-meta{color:#6b7280;margin-bottom:8px}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.result-card{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.result-card:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(15,23,42,0.06)}
+.no-results{color:#6b7280;padding:14px;background:#fff;border-radius:8px}
+
+@media (max-width:640px){
+  .search-form{flex-direction:column;gap:6px}
+  .search-form input[type="search"]{max-width:100%;width:100%}
+  .history-row{flex-direction:column;align-items:flex-start}
+  .history-row .history-meta{margin-left:0;margin-top:6px}
 }
