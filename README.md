@@ -2,7 +2,7 @@
 
 A small front-end product listing demo that fetches product data from DummyJSON and provides features for browsing, searching, viewing product details, and tracking user history.
 
-**Made by Debaprakash Jena**
+# **Made by Debaprakash Jena**
 
 ---
 
